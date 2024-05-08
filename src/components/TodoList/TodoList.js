@@ -49,7 +49,7 @@ const TodoList = () => {
                         <p><strong>ユーザー:</strong> {todo.user_name}</p>
                         <p><strong>詳細:</strong> {todo.description}</p>
                         <p><strong>タグ:</strong> {todo.tag1}, {todo.tag2}, {todo.tag3}</p>
-                        
+                       
                     </li>
                 ))}
             </ul>

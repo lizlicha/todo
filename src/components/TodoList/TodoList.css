@@ -4,28 +4,46 @@
     background-color: #e0f7fa;
     border-radius: 10px;
     padding: 20px;
-    max-width: 400px;
+    max-width: 600px;
     margin: 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.todo-list h1 {
+  }
+  
+  .todo-list h1 {
     color: #00796b;
     text-align: center;
     font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-}
-
-.todo-list ul {
+  }
+  
+  .todo-list ul {
     list-style: none;
     padding: 0;
-}
-
-.todo-list li {
+  }
+  
+  .todo-list li {
     background-color: #b2ebf2;
     margin: 10px 0;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
-    font-family: "メイリオ";
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
     color: #004d40;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    text-align: left;
+  }
+  
+  .todo-list h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #00796b;
+  }
+  
+  .todo-list p {
+    margin: 5px 0;
+    color: #004d40;
+    text-align: left;
+  }
+  
+  .todo-list p strong {
+    font-weight: bold;
+  }
+  
