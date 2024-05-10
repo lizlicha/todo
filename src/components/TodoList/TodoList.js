@@ -72,6 +72,12 @@ const TodoList = () => {
         });
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    };
+
     const handleAddTodo = (event) => {
         event.preventDefault();
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos', {
@@ -113,6 +119,7 @@ const TodoList = () => {
                     placeholder="ユーザー名"
                     value={newTodo.user_name}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <input
                     type="text"
@@ -120,6 +127,7 @@ const TodoList = () => {
                     placeholder="タイトル"
                     value={newTodo.title}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <input
                     type="text"
@@ -127,6 +135,7 @@ const TodoList = () => {
                     placeholder="詳細"
                     value={newTodo.description}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <input
                     type="text"
@@ -134,6 +143,7 @@ const TodoList = () => {
                     placeholder="タグ1"
                     value={newTodo.tag1}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <input
                     type="text"
@@ -141,6 +151,7 @@ const TodoList = () => {
                     placeholder="タグ2"
                     value={newTodo.tag2}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <input
                     type="text"
@@ -148,6 +159,7 @@ const TodoList = () => {
                     placeholder="タグ3"
                     value={newTodo.tag3}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
                 <button type="submit">追加</button>
             </form>
