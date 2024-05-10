@@ -3,6 +3,15 @@ import './TodoList.css';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
+    const [newTodo, setNewTodo] = useState({
+        user_name: '',
+        title: '',
+        description: '',
+        tag1: '',
+        tag2: '',
+        tag3: '',
+        completed: false,
+    });
 
     useEffect(() => {
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
@@ -55,6 +64,39 @@ const TodoList = () => {
             .catch(error => console.error('Error resetting todos:', error));
     };
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setNewTodo({
+            ...newTodo,
+            [name]: value,
+        });
+    };
+
+    const handleAddTodo = (event) => {
+        event.preventDefault();
+        fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTodo),
+        })
+        .then(response => response.json())
+        .then(data => {
+            setTodos([...todos, data]);
+            setNewTodo({
+                user_name: '',
+                title: '',
+                description: '',
+                tag1: '',
+                tag2: '',
+                tag3: '',
+                completed: false,
+            });
+        })
+        .catch(error => console.error('Error adding todo:', error));
+    };
+
     const formatTags = (tag1, tag2, tag3) => {
         const tags = [tag1, tag2, tag3].filter(tag => tag).map(tag => `#${tag}`);
         return tags.join(' ');
@@ -64,6 +106,51 @@ const TodoList = () => {
         <div className="todo-list">
             <h1>Todo List</h1>
             <button onClick={handleReset}>テストデータ復活(デバッグ用)</button>
+            <form onSubmit={handleAddTodo}>
+                <input
+                    type="text"
+                    name="user_name"
+                    placeholder="ユーザー名"
+                    value={newTodo.user_name}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="タイトル"
+                    value={newTodo.title}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="詳細"
+                    value={newTodo.description}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="text"
+                    name="tag1"
+                    placeholder="タグ1"
+                    value={newTodo.tag1}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="text"
+                    name="tag2"
+                    placeholder="タグ2"
+                    value={newTodo.tag2}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="text"
+                    name="tag3"
+                    placeholder="タグ3"
+                    value={newTodo.tag3}
+                    onChange={handleInputChange}
+                />
+                <button type="submit">追加</button>
+            </form>
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
