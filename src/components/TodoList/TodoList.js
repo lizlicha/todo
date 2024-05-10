@@ -1,43 +1,24 @@
-// src/TodoList.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TodoList.css';
 
 const TodoList = () => {
-    const [todos, setTodos] = useState([
-        {
-            id: 1,
-            user_id: 1,
-            user_name: 'アリス',
-            text: '買い物',
-            description: '牛乳、パン、卵、チーズを買う',
-            tag1: 'ショッピング',
-            tag2: '緊急',
-            tag3: null,
-            completed: false,
-        },
-        {
-            id: 2,
-            user_id: 2,
-            user_name: 'ボブ',
-            text: '犬の散歩',
-            description: '公園で犬を散歩させる',
-            tag1: '運動',
-            tag2: 'ペット',
-            tag3: null,
-            completed: false,
-        },
-        {
-            id: 3,
-            user_id: 1,
-            user_name: 'アリス',
-            text: '洗濯',
-            description: '服を洗って畳む',
-            tag1: '家事',
-            tag2: null,
-            tag3: null,
-            completed: false,
-        },
-    ]);
+    const [todos, setTodos] = useState([]);
+
+    useEffect(() => {
+        fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
+            .then(response => response.json())
+            .then(data => setTodos(data))
+            .catch(error => console.error('Error fetching todos:', error));
+    }, []);
+
+    const handleComplete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
+
+    const formatTags = (tag1, tag2, tag3) => {
+        const tags = [tag1, tag2, tag3].filter(tag => tag).map(tag => `#${tag}`);
+        return tags.join(' ');
+    };
 
     return (
         <div className="todo-list">
@@ -45,11 +26,11 @@ const TodoList = () => {
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
-                        <h2>{todo.text}</h2>
+                        <h2>{todo.title}</h2>
                         <p><strong>ユーザー:</strong> {todo.user_name}</p>
                         <p><strong>詳細:</strong> {todo.description}</p>
-                        <p><strong>タグ:</strong> {todo.tag1}, {todo.tag2}, {todo.tag3}</p>
-                       
+                        <p><strong>タグ:</strong> {formatTags(todo.tag1, todo.tag2, todo.tag3)}</p>
+                        <button onClick={() => handleComplete(todo.id)}>完了</button>
                     </li>
                 ))}
             </ul>
