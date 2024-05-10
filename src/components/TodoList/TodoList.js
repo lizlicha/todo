@@ -12,7 +12,21 @@ const TodoList = () => {
     }, []);
 
     const handleComplete = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        fetch(`https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, completed: true })
+        })
+        .then(response => {
+            if (response.ok) {
+                setTodos(todos.filter(todo => todo.id !== id));
+            } else {
+                console.error('Failed to update todo');
+            }
+        })
+        .catch(error => console.error('Error updating todo:', error));
     };
 
     const formatTags = (tag1, tag2, tag3) => {
