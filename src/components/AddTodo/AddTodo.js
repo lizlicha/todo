@@ -1,4 +1,4 @@
-// src/AddTodo.js
+// AddTodo.js
 import React, { useState } from 'react';
 import './AddTodo.css';
 
@@ -9,7 +9,7 @@ const handleKeyDown = (event) => {
     }
 };
 
-const AddTodo = () => {
+const AddTodo = ({ onAddTodo }) => {
     // フォームの入力データを管理するステートを定義
     const [newTodo, setNewTodo] = useState({
         user_name: '',
@@ -45,6 +45,7 @@ const AddTodo = () => {
         .then(response => response.json())
         .then(data => {
             console.log('Todo added:', data); // 成功した場合のログ
+            onAddTodo(newTodo); // 親コンポーネントに新しいTodoを追加する
         })
         .catch(error => console.error('Error adding todo:', error));
 

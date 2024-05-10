@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TodoList.css';
-import AddTodo from './AddTodo';
+import AddTodo from '../AddTodo/AddTodo';
 
 // TodoListコンポーネントの定義
 const TodoList = () => {
@@ -63,6 +63,11 @@ const TodoList = () => {
             .catch(error => console.error('Error resetting todos:', error));
     };
 
+    // 新しいTodoが追加されたときに呼び出される関数
+    const handleAddTodo = (newTodo) => {
+        setTodos([...todos, newTodo]);
+    };
+
     // タグをフォーマットする関数
     const formatTags = (tag1, tag2, tag3) => {
         const tags = [tag1, tag2, tag3].filter(tag => tag).map(tag => `#${tag}`);
@@ -75,7 +80,7 @@ const TodoList = () => {
             <h1>Todo List</h1>
             <button onClick={handleReset}>テストデータ復活(デバッグ用)</button>
             {/* AddTodoコンポーネントの呼び出し */}
-            <AddTodo />
+            <AddTodo onAddTodo={handleAddTodo} />
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
