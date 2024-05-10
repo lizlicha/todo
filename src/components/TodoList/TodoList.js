@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './TodoList.css';
+import AddTodo from '../AddTodo/AddTodo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-    const [newTodo, setNewTodo] = useState({
-        user_name: '',
-        title: '',
-        description: '',
-        tag1: '',
-        tag2: '',
-        tag3: '',
-        completed: false,
-    });
 
     useEffect(() => {
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
@@ -64,22 +56,7 @@ const TodoList = () => {
             .catch(error => console.error('Error resetting todos:', error));
     };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setNewTodo({
-            ...newTodo,
-            [name]: value,
-        });
-    };
-
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-        }
-    };
-
-    const handleAddTodo = (event) => {
-        event.preventDefault();
+    const addTodo = (newTodo) => {
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos', {
             method: 'POST',
             headers: {
@@ -90,15 +67,6 @@ const TodoList = () => {
         .then(response => response.json())
         .then(data => {
             setTodos([...todos, data]);
-            setNewTodo({
-                user_name: '',
-                title: '',
-                description: '',
-                tag1: '',
-                tag2: '',
-                tag3: '',
-                completed: false,
-            });
         })
         .catch(error => console.error('Error adding todo:', error));
     };
@@ -112,57 +80,7 @@ const TodoList = () => {
         <div className="todo-list">
             <h1>Todo List</h1>
             <button onClick={handleReset}>テストデータ復活(デバッグ用)</button>
-            <form onSubmit={handleAddTodo}>
-                <input
-                    type="text"
-                    name="user_name"
-                    placeholder="ユーザー名"
-                    value={newTodo.user_name}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="タイトル"
-                    value={newTodo.title}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <input
-                    type="text"
-                    name="description"
-                    placeholder="詳細"
-                    value={newTodo.description}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <input
-                    type="text"
-                    name="tag1"
-                    placeholder="タグ1"
-                    value={newTodo.tag1}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <input
-                    type="text"
-                    name="tag2"
-                    placeholder="タグ2"
-                    value={newTodo.tag2}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <input
-                    type="text"
-                    name="tag3"
-                    placeholder="タグ3"
-                    value={newTodo.tag3}
-                    onChange={handleInputChange}
-                    onKeyPress={handleKeyPress}
-                />
-                <button type="submit">追加</button>
-            </form>
+            <AddTodo addTodo={addTodo} />
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id}>
