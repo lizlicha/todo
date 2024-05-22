@@ -1,36 +1,56 @@
 /* src/components/AddTodo/AddTodo.css */
 
 form {
-    background-color: #b2ebf2; /* TodoListのリストと同じ濃い水色で塗りつぶす */
-    border-radius: 10px; /* 角を丸くする */
-    padding: 20px; /* 内側の余白 */
-    max-width: 600px; /* 最大幅 */
-    margin: 20px auto; /* 上下に余白を取り、中央に配置 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を付ける */
-    text-align: center; /* 中央揃え */
-  }
-  
-  input {
-    display: block; /* 各入力フィールドをブロック表示 */
-    width: 80%; /* 入力フィールドの幅を80%にする */
-    padding: 10px; /* 内側の余白 */
-    margin: 10px auto; /* 上下に余白を取り、中央に配置 */
-    border: 1px solid #ccc; /* 枠の色 */
-    border-radius: 5px; /* 角を丸くする */
-  }
-  
-  button {
-    background-color: #4caf50; /* ボタンの背景色 */
-    color: white; /* ボタンのテキスト色 */
-    border: none; /* ボタンの枠線を消す */
-    padding: 10px 20px; /* ボタンの内側の余白 */
-    border-radius: 5px; /* ボタンの角を丸くする */
-    cursor: pointer; /* マウスオーバー時にポインターを表示 */
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* フォントファミリー */
-    margin-top: 20px; /* 上部に余白 */
-  }
-  
-  button:hover {
-    background-color: #45a049; /* マウスオーバー時のボタンの背景色 */
-  }
-  
+  background-color: #b2ebf2;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+input[type="text"], input[type="date"], input[type="time"], textarea {
+  display: block;
+  width: 94%;
+  padding: 10px;
+  margin: 10px 3%;  /* 全フィールドの左右マージンを3%、上下マージンを10pxに統一 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 100px;
+}
+
+.datetime-container, .tag-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  width: 94%; /* 親フォームに合わせた幅 */
+  margin: 10px 3%;  /* これらのコンテナも全フィールドと同様のマージンを持つ */
+}
+
+.datetime-input, input[type="text"].tag-input {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;  /* 子要素間の間隔、垂直マージンは親コンテナにより制御 */
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;  /* ボタンの下のスペースを20pxに設定 */
+}
+
+button:hover {
+  background-color: #45a049;
+}
