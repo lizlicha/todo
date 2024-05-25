@@ -1,63 +1,62 @@
 /* src/components/AddTodo/AddTodo.css */
+@media (max-width: 768px) {
+  form {
+      width: 90%;
+      padding: 10px;
+  }
+}
 
 form {
-  background-color: #b2ebf2;
-  border-radius: 10px;
-  padding: 20px;
-  width: 600px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  box-sizing: border-box;
+background-color: #b2ebf2;
+border-radius: 10px;
+padding: 20px;
+width: 600px;
+margin: 20px auto;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+text-align: center;
+box-sizing: border-box;
 }
 
 input[type="text"], input[type="date"], input[type="time"], textarea {
-  display: block;
-  width: calc(100% - 40px);  /* パディングを考慮して幅を計算 */
-  padding: 10px;
-  margin: 10px auto;  /* 上下のマージンを10px、左右を自動で中央揃え */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
+display: block;
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 16px;
+box-sizing: border-box;
+}
+
+input:focus, textarea:focus, button:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
 }
 
 textarea {
-  height: 100px;
-  width: calc(100% - 40px);  /* パディングを考慮して幅を計算 */
-  margin: 10px auto;
+height: 100px;
 }
 
 .datetime-container, .tag-container {
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 40px); /* パディングを考慮して幅を計算 */
-  margin: 10px auto;  /* 上下のマージンを10px、左右を自動で中央揃え */
-  box-sizing: border-box;
-}
-
-.datetime-input, input[type="text"].tag-input {
-  flex: 1;
-  padding: 10px;
-  margin: 0 5px;  /* 子要素間のマージン調整 */
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+width: 100%;
+margin: 10px 0;
 }
 
 button {
-  width: calc(100% - 40px);
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
+width: 100%;
+background-color: #4caf50;
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 20px;
+margin-bottom: 20px;
+box-sizing: border-box;
 }
 
 button:hover {
-  background-color: #45a049;
+background-color: #45a049;
 }
