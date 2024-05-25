@@ -60,7 +60,7 @@ const AddTodo = ({ onAddTodo }) => {
             <input type="text" name="user_name" placeholder="ユーザー名" value={newTodo.user_name} onChange={handleInputChange} onKeyDown={handleKeyDown} />
             <input type="text" name="title" placeholder="タイトル" value={newTodo.title} onChange={handleInputChange} onKeyDown={handleKeyDown} />
             <div className="datetime-container">
-                <input type="date" name="date" value={newTodo.date} onChange={handleInputChange} className="datetime-input" />
+                <input type="date" name="date" placeholder="期限" value={newTodo.date} onChange={handleInputChange} className="datetime-input" />
                 <input type="time" name="time" value={newTodo.time} onChange={handleInputChange} className="datetime-input" />
             </div>
             <input type="text" name="description" placeholder="詳細" value={newTodo.description} onChange={handleInputChange} onKeyDown={handleKeyDown} />
