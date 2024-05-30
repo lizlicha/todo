@@ -4,13 +4,13 @@ import AddTodo from '../AddTodo/AddTodo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-    const [sortType, setSortType] = useState('title'); // ソートタイプのデフォルトをタイトルに設定
+    const [sortType, setSortType] = useState('title');
 
     useEffect(() => {
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
             .then(response => response.json())
             .then(data => {
-                sortTodos(data); // データを取得後にソート
+                sortTodos(data);
             })
             .catch(error => console.error('Error fetching todos:', error));
     }, [sortType]);
@@ -27,20 +27,28 @@ const TodoList = () => {
     };
 
     const handleComplete = (id) => {
-        // 既存のコードをそのまま使用
+        setTodos(todos.map(todo => (
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        )));
     };
 
     const handleReset = () => {
-        // 既存のコードをそのまま使用
+        fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
+            .then(response => response.json())
+            .then(data => {
+                sortTodos(data);
+            })
+            .catch(error => console.error('Error fetching todos:', error));
     };
 
     const handleAddTodo = (newTodo) => {
-        setTodos([...todos, newTodo]); // 新しいTodoを追加後、自動的にソート
-        sortTodos([...todos, newTodo]);
+        const updatedTodos = [...todos, newTodo];
+        setTodos(updatedTodos);
+        sortTodos(updatedTodos);
     };
 
     const formatTags = (tag1, tag2, tag3) => {
-        // 既存のコードをそのまま使用
+        return [tag1, tag2, tag3].filter(tag => tag).join(', ');
     };
 
     return (
@@ -54,12 +62,15 @@ const TodoList = () => {
             <AddTodo onAddTodo={handleAddTodo} />
             <ul>
                 {todos.map(todo => (
-                    <li key={todo.id}>
+                    <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                         <h2>{todo.title}</h2>
                         <p><strong>ユーザー:</strong> {todo.user_name}</p>
                         <p><strong>詳細:</strong> {todo.description}</p>
                         <p><strong>タグ:</strong> {formatTags(todo.tag1, todo.tag2, todo.tag3)}</p>
-                        <button onClick={() => handleComplete(todo.id)}>完了</button>
+                        <p><strong>日付:</strong> {todo.date}</p>
+                        <button onClick={() => handleComplete(todo.id)}>
+                            {todo.completed ? '未完了' : '完了'}
+                        </button>
                     </li>
                 ))}
             </ul>

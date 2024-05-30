@@ -19,6 +19,8 @@ const AddTodo = ({ onAddTodo }) => {
         let tempErrors = {};
         if (!newTodo.user_name) tempErrors.user_name = "ユーザー名は必須です";
         if (!newTodo.title) tempErrors.title = "タイトルは必須です";
+        if (!newTodo.date) tempErrors.date = "日付は必須です";
+        if (!newTodo.time) tempErrors.time = "時間は必須です";
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
     };
@@ -57,7 +59,9 @@ const AddTodo = ({ onAddTodo }) => {
             <input type="text" name="description" aria-label="詳細" placeholder="詳細" value={newTodo.description} onChange={handleInputChange} />
             <div className="datetime-container">
                 <input type="date" name="date" aria-label="日付" value={newTodo.date} onChange={handleInputChange} />
+                {errors.date && <p className="error">{errors.date}</p>}
                 <input type="time" name="time" aria-label="時間" value={newTodo.time} onChange={handleInputChange} />
+                {errors.time && <p className="error">{errors.time}</p>}
             </div>
             <div className="tag-container">
                 <input type="text" name="tag1" aria-label="タグ1" placeholder="タグ1" value={newTodo.tag1} onChange={handleInputChange} />
