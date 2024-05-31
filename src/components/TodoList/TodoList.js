@@ -54,12 +54,12 @@ const TodoList = () => {
     return (
         <div className="todo-list">
             <h1>Todo List</h1>
-            <select onChange={(e) => setSortType(e.target.value)}>
+            <select className="sort-select" onChange={(e) => setSortType(e.target.value)}>
                 <option value="title">タイトルでソート</option>
                 <option value="date">日付でソート</option>
             </select>
-            <button onClick={handleReset}>テストデータ復活(デバッグ用)</button>
             <AddTodo onAddTodo={handleAddTodo} />
+            <button onClick={handleReset}>テストデータ復活(デバッグ用)</button>
             <ul>
                 {todos.map(todo => (
                     <li key={todo.id} className={todo.completed ? 'completed' : ''}>
