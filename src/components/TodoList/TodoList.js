@@ -26,10 +26,8 @@ const TodoList = () => {
         setTodos(todos);
     };
 
-    const handleComplete = (id) => {
-        setTodos(todos.map(todo => (
-            todo.id === id ? { ...todo, completed: !todo.completed } : todo
-        )));
+    const handleDelete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
     };
 
     const handleReset = () => {
@@ -68,9 +66,7 @@ const TodoList = () => {
                         <p><strong>詳細:</strong> {todo.description}</p>
                         <p><strong>タグ:</strong> {formatTags(todo.tag1, todo.tag2, todo.tag3)}</p>
                         <p><strong>日付:</strong> {todo.date}</p>
-                        <button onClick={() => handleComplete(todo.id)}>
-                            {todo.completed ? '未完了' : '完了'}
-                        </button>
+                        <button onClick={() => handleDelete(todo.id)}>完了</button>
                     </li>
                 ))}
             </ul>
