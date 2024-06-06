@@ -5,6 +5,7 @@ import AddTodo from '../AddTodo/AddTodo';
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const [sortType, setSortType] = useState('title');
+    const [sortDirection, setSortDirection] = useState('asc');
 
     useEffect(() => {
         fetch('https://56n12ow66c.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
@@ -13,17 +14,23 @@ const TodoList = () => {
                 sortTodos(data);
             })
             .catch(error => console.error('Error fetching todos:', error));
-    }, [sortType]);
+    }, [sortType, sortDirection]);
 
     const sortTodos = (todos) => {
         todos.sort((a, b) => {
+            let comparison = 0;
             if (sortType === 'title') {
-                return a.title.localeCompare(b.title);
+                comparison = a.title.localeCompare(b.title);
             } else if (sortType === 'date') {
-                return new Date(a.date) - new Date(b.date);
+                comparison = new Date(a.date) - new Date(b.date);
             }
+            return sortDirection === 'asc' ? comparison : -comparison;
         });
         setTodos(todos);
+    };
+
+    const toggleSortDirection = () => {
+        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     };
 
     const handleDelete = (id) => {
@@ -37,6 +44,14 @@ const TodoList = () => {
                 sortTodos(data);
             })
             .catch(error => console.error('Error fetching todos:', error));
+    };
+
+    const handleSortByTitle = () => {
+        setSortType('title');
+    };
+
+    const handleSortByDate = () => {
+        setSortType('date');
     };
 
     const handleAddTodo = (newTodo) => {
@@ -55,10 +70,8 @@ const TodoList = () => {
             <button className="reset-button" onClick={handleReset}>テストデータ復活(デバッグ用)</button>
             <AddTodo onAddTodo={handleAddTodo} />
             <div className="controls">
-                <select className="sort-select" onChange={(e) => setSortType(e.target.value)}>
-                    <option value="title">タイトルでソート</option>
-                    <option value="date">日付でソート</option>
-                </select>
+                <button onClick={handleSortByTitle}>タイトルでソート⇅</button>
+                <button onClick={handleSortByDate}>日付でソート⇅</button>
             </div>
             <ul>
                 {todos.map(todo => (
