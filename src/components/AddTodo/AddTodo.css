@@ -17,11 +17,16 @@ form {
   box-sizing: border-box;
 }
 
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
 input[type="text"], input[type="date"], input[type="time"], textarea {
   display: block;
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
@@ -64,7 +69,6 @@ button:hover {
 .error {
   color: red;
   font-size: 12px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
   text-align: left;
 }

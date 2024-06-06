@@ -47,11 +47,21 @@ const TodoList = () => {
     };
 
     const handleSortByTitle = () => {
-        setSortType('title');
+        if (sortType === 'title') {
+            toggleSortDirection();
+        } else {
+            setSortType('title');
+            setSortDirection('asc');
+        }
     };
 
     const handleSortByDate = () => {
-        setSortType('date');
+        if (sortType === 'date') {
+            toggleSortDirection();
+        } else {
+            setSortType('date');
+            setSortDirection('asc');
+        }
     };
 
     const handleAddTodo = (newTodo) => {
@@ -70,8 +80,12 @@ const TodoList = () => {
             <button className="reset-button" onClick={handleReset}>テストデータ復活(デバッグ用)</button>
             <AddTodo onAddTodo={handleAddTodo} />
             <div className="controls">
-                <button onClick={handleSortByTitle}>タイトルでソート⇅</button>
-                <button onClick={handleSortByDate}>日付でソート⇅</button>
+                <button onClick={handleSortByTitle}>
+                    タイトルでソート{sortType === 'title' ? (sortDirection === 'asc' ? '⇩' : '⇧') : '⇩'}
+                </button>
+                <button onClick={handleSortByDate}>
+                    日付でソート{sortType === 'date' ? (sortDirection === 'asc' ? '⇩' : '⇧') : '⇩'}
+                </button>
             </div>
             <ul>
                 {todos.map(todo => (

@@ -52,12 +52,18 @@ const AddTodo = ({ onAddTodo }) => {
 
     return (
         <form onSubmit={handleAddTodo}>
-            <input type="text" name="user_name" aria-label="ユーザー名" placeholder="ユーザー名" value={newTodo.user_name} onChange={handleInputChange} />
-            {errors.user_name && <p className="error">{errors.user_name}</p>}
-            <input type="text" name="title" aria-label="タイトル" placeholder="タイトル" value={newTodo.title} onChange={handleInputChange} />
-            {errors.title && <p className="error">{errors.title}</p>}
-            <input type="text" name="description" aria-label="詳細" placeholder="詳細" value={newTodo.description} onChange={handleInputChange} />
-            <div className="datetime-container">
+            <div className="input-group">
+                <input type="text" name="user_name" aria-label="ユーザー名" placeholder="ユーザー名" value={newTodo.user_name} onChange={handleInputChange} />
+                {errors.user_name && <p className="error">{errors.user_name}</p>}
+            </div>
+            <div className="input-group">
+                <input type="text" name="title" aria-label="タイトル" placeholder="タイトル" value={newTodo.title} onChange={handleInputChange} />
+                {errors.title && <p className="error">{errors.title}</p>}
+            </div>
+            <div className="input-group">
+                <input type="text" name="description" aria-label="詳細" placeholder="詳細" value={newTodo.description} onChange={handleInputChange} />
+            </div>
+            <div className="datetime-container input-group">
                 <input type="date" name="date" aria-label="日付" value={newTodo.date} onChange={handleInputChange} />
                 {errors.date && <p className="error">{errors.date}</p>}
                 <input type="time" name="time" aria-label="時間" value={newTodo.time} onChange={handleInputChange} />
